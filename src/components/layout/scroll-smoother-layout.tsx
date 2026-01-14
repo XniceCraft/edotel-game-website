@@ -1,0 +1,62 @@
+'use client'
+
+import { useRef, type ReactNode } from 'react'
+import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollSmoother } from 'gsap/ScrollSmoother'
+
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother)
+
+export default function ScrollSmootherLayout({
+  children,
+}: Readonly<{
+  children?: ReactNode
+}>) {
+  const smoothWrapperRef = useRef<HTMLDivElement | null>(null)
+  const smoothContentRef = useRef<HTMLDivElement | null>(null)
+  const smoothScrollerRef = useRef<ScrollSmoother | null>(null)
+
+  useGSAP(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768
+
+    if (
+      isMobile ||
+      !smoothWrapperRef.current ||
+      !smoothContentRef.current ||
+      smoothScrollerRef.current
+    )
+      return
+
+    smoothScrollerRef.current = ScrollSmoother.create({
+      wrapper: smoothWrapperRef.current,
+      content: smoothContentRef.current,
+      smooth: 3,
+      effects: true,
+      normalizeScroll: true,
+      ignoreMobileResize: true,
+    })
+
+    const handleResize = () => {
+      if (smoothScrollerRef.current) {
+        smoothScrollerRef.current.refresh()
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      if (smoothScrollerRef.current) {
+        smoothScrollerRef.current.kill()
+      }
+      window.removeEventListener('resize', handleResize)
+    }
+  })
+
+  return (
+    <div ref={smoothWrapperRef} id="smooth-wrapper">
+      <div ref={smoothContentRef} id="smooth-content">
+        {children}
+      </div>
+    </div>
+  )
+}
