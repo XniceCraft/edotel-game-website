@@ -3,6 +3,7 @@ import { Outfit } from 'next/font/google'
 import ScrollSmootherLayout from '@/components/layout/scroll-smoother-layout'
 
 import type { Metadata } from 'next'
+import Navbar from '@/components/layout/navbar'
 
 const outfitFont = Outfit({
   variable: '--font-outfit',
@@ -29,7 +30,10 @@ export default function RootLayout({
         className={`${outfitFont.variable} antialiased font-sans`}
         suppressHydrationWarning
       >
-        <ScrollSmootherLayout>{children}</ScrollSmootherLayout>
+        <ScrollSmootherLayout>
+          <Navbar />
+          {children}
+        </ScrollSmootherLayout>
       </body>
     </html>
   )

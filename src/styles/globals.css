@@ -126,3 +126,14 @@
     cursor: pointer;
   }
 }
+
+@layer utilities {
+  .text-outline-white {
+    -webkit-text-stroke: 2px white;
+  }
+  .inline-bg {
+    display: inline;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}
