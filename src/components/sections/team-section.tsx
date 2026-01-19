@@ -17,7 +17,7 @@ interface TeamMember {
 }
 
 interface TeamSectionProps {
-  teamData: {
+  data: {
     backgroundImage: string
     section: {
       title: string
@@ -31,7 +31,7 @@ interface TeamSectionProps {
   }
 }
 
-export default function TeamSection({ teamData }: TeamSectionProps) {
+export default function TeamSection({ data }: TeamSectionProps) {
   const [progress, setProgress] = useState(0)
   const sectionRef = useRef<HTMLDivElement | null>(null)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
@@ -106,8 +106,8 @@ export default function TeamSection({ teamData }: TeamSectionProps) {
     >
       {/* <div className="hidden md:block w-auto h-auto absolute inset-0 z-0 rounded-4xl bg-gray-100 mx-6 md:my-20 lg:my-10">
         <img
-          src={teamData.backgroundImage}
-          alt={teamData.section.title}
+          src={data.backgroundImage}
+          alt={data.section.title}
           className="w-full h-full object-cover opacity-20 rounded-4xl"
         />
       </div> */}
@@ -115,18 +115,18 @@ export default function TeamSection({ teamData }: TeamSectionProps) {
       <div className="w-full flex flex-col sm:flex-row sm:items-center py-10">
         <div className="leftBox min-w-90 lg:min-w-[28%] max-w-86 sm:max-w-96 space-y-5 mb-10 sm:mb-0 mx-5 lg:ml-16 md:mx-20 lg:mr-20">
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold font-albert-sans">
-            {teamData.section.title}
+            {data.section.title}
           </h1>
           <p className="font-albert-sans text-xs font-medium">
-            {teamData.section.description}
+            {data.section.description}
           </p>
           <Link
-            href={teamData.ctaButton.url}
+            href={data.ctaButton.url}
             className="flex items-center gap-0.5 cursor-pointer group w-fit"
           >
             <HiOutlineArrowUpRight className="w-10 h-10 z-1 sm:z-0 sm:w-14 sm:h-14 text-white sm:text-black bg-black sm:bg-white border border-black rounded-full p-3 sm:p-4 sm:transition-all sm:duration-300 -mr-11.5 sm:mr-0 sm:group-hover:-mr-14.5 sm:group-hover:bg-black sm:group-hover:text-white sm:group-hover:scale-90" />
             <p className="bg-white px-4 sm:px-8 py-2.5 sm:py-4 border border-black rounded-full whitespace-nowrap pl-14 sm:pl-8 sm:transition-all sm:duration-300 sm:group-hover:pl-22.5 font-albert-sans font-medium">
-              {teamData.ctaButton.title}
+              {data.ctaButton.title}
             </p>
           </Link>
         </div>
@@ -136,7 +136,7 @@ export default function TeamSection({ teamData }: TeamSectionProps) {
           className="relative w-full sm:min-w-max sm:flex-1 overflow-x-auto sm:overflow-visible me-4"
         >
           <div className="flex gap-8 sm:gap-12 px-5 sm:px-0 sm:pr-16 mb-6 pe-4">
-            {teamData.teamMembers.slice(0, 5).map((team) => (
+            {data.teamMembers.slice(0, 5).map((team) => (
               <div key={team.id} className="relative overflow-x-visible">
                 <div className="w-fit p-1 sm:p-2.5 rounded-2xl sm:rounded-4xl flex items-center justify-center shadow-md bg-white">
                   <div className="rounded-xl sm:rounded-3xl group overflow-hidden">

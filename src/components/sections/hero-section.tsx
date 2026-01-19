@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 
 interface HeroSectionProps {
-  heroData: {
+  data: {
     backgroundText: string
     title: string
     firstSection?: {
@@ -19,7 +19,7 @@ interface HeroSectionProps {
   }
 }
 
-export default function HeroSection({ heroData }: HeroSectionProps) {
+export default function HeroSection({ data }: HeroSectionProps) {
   const sectionHeroRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
@@ -108,35 +108,35 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
       }}
     >
       <h1 className="absolute text-[10rem] md:text-[18rem] text-transparent text-outline-white font-bold -top-1/2 md:top-1/2 md:-translate-y-1/2 ">
-        {heroData.backgroundText}
+        {data.backgroundText}
       </h1>
 
       {/* Mobile */}
       <div className="md:hidden relative w-full h-full">
-        {heroData.firstSection && (
+        {data.firstSection && (
           <div className="min-h-screen flex flex-col justify-end p-6 pb-12">
             <div>
               <h1 className="subtitle-first text-2xl font-semibold text-white bg-black inline-bg px-3 leading-relaxed">
-                {heroData.firstSection.description}
+                {data.firstSection.description}
               </h1>
               <p className="paragraph-first mt-6 max-w-[80%] font-medium text-xs text-gray-600">
-                {heroData.firstSection.title}
+                {data.firstSection.title}
               </p>
             </div>
           </div>
         )}
 
-        {heroData.secondSection && (
+        {data.secondSection && (
           <div className="h-screen flex flex-col justify-end p-6 pb-4">
             <div className="mb-6">
               <h1 className="title text-7xl font-bold text-transparent text-outline-black mb-6">
-                {heroData.title}
+                {data.title}
               </h1>
               <h1 className="subtitle-second text-2xl font-semibold text-white bg-black inline-bg px-3 leading-relaxed">
-                {heroData.secondSection.description}
+                {data.secondSection.description}
               </h1>
               <p className="paragraph-second mt-6 max-w-[80%] font-medium text-xs text-gray-600">
-                {heroData.secondSection.title}
+                {data.secondSection.title}
               </p>
             </div>
           </div>
@@ -147,29 +147,29 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
       <div className="hidden md:grid relative min-w-screen min-h-screen grid-cols-1 md:grid-cols-2 grid-rows-3 gap-4 p-6 md:p-20 lg:p-30">
         <div className="col-span-1 md:col-span-2 grid items-end md:items-center lg:items-start">
           <h1 className="title text-7xl md:text-7xl lg:text-8xl font-bold text-transparent text-outline-black">
-            {heroData.title}
+            {data.title}
           </h1>
         </div>
         <div className="grid md:items-start lg:items-center text-start md:-mr-36 lg:mr-0">
           <div>
             <h1 className="subtitle-first text-2xl md:text-4xl font-semibold text-white bg-black inline-bg px-3 leading-relaxed md:leading-14">
-              {heroData.firstSection?.description}
+              {data.firstSection?.description}
             </h1>
           </div>
         </div>
         <div className="grid md:items-start lg:items-center text-start md:text-end md:-ml-36 lg:ml-0">
           <div>
             <h1 className="subtitle-second text-2xl md:text-4xl font-semibold text-white bg-black inline-bg px-3 leading-relaxed md:leading-14">
-              {heroData.secondSection?.description}
+              {data.secondSection?.description}
             </h1>
           </div>
         </div>
         <div className="text-start text-gray-500 relative">
           <p className="paragraph-first absolute lg:max-w-1/2 font-medium text-xs">
-            {heroData.firstSection?.title}
+            {data.firstSection?.title}
           </p>
           <p className="paragraph-second absolute lg:max-w-1/2 font-medium text-xs">
-            {heroData.secondSection?.title}
+            {data.secondSection?.title}
           </p>
         </div>
       </div>
