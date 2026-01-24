@@ -13,7 +13,7 @@ export default function Home() {
       <HeroSection data={heroData} />
       <TeamSection data={teamData} />
       <AboutSection data={aboutData} />
-      <TutorialSection data={tutorialData} />
+      {/* <TutorialSection data={tutorialData} /> */}
     </>
   )
 }

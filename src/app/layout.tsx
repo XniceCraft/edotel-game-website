@@ -4,6 +4,7 @@ import ScrollSmootherLayout from '@/components/layout/scroll-smoother-layout'
 
 import type { Metadata } from 'next'
 import Navbar from '@/components/layout/navbar'
+import Footer from '@/components/layout/footer'
 
 const outfitFont = Outfit({
   variable: '--font-outfit',
@@ -33,6 +34,7 @@ export default function RootLayout({
         <ScrollSmootherLayout>
           <Navbar />
           {children}
+          <Footer />
         </ScrollSmootherLayout>
       </body>
     </html>
