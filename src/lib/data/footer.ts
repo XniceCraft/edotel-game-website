@@ -1,19 +1,18 @@
 import { FaGithub, FaInstagram, FaWhatsapp, FaReact } from 'react-icons/fa'
 import { SiGreensock, SiShadcnui, SiTypescript } from 'react-icons/si'
 
-export const footerData = {
+import type { Footer } from '@/types/footer'
+
+export const footerData: Footer = {
   runningText: {
     firstText: 'EDOTEL HOW TO',
     secondText: 'LEARN • BUILD • SHARE',
   },
-
   brand: {
     title: 'Edotel How To',
     description:
       'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi repellat obcaecati vel? Nihil illo quam similique et saepe',
-    subtitle: 'Connect with us',
   },
-
   social: [
     {
       label: 'WhatsApp',
@@ -31,7 +30,6 @@ export const footerData = {
       icon: FaGithub,
     },
   ],
-
   navigation: {
     title: 'Navigation',
     items: [
@@ -49,25 +47,6 @@ export const footerData = {
       },
     ],
   },
-
-  creator: {
-    title: 'Creator',
-    items: [
-      {
-        label: 'Tio',
-        href: '#',
-      },
-      {
-        label: 'Kenzo',
-        href: '#',
-      },
-      {
-        label: 'Ino',
-        href: '#',
-      },
-    ],
-  },
-
   resources: {
     title: 'Resource',
     items: [

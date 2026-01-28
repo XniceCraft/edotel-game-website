@@ -1,19 +1,16 @@
-import TeamSection from '@/components/sections/team-section'
-import AboutSection from '@/components/sections/about-section'
-import HeroSection from '@/components/sections/hero-section'
-import TutorialSection from '@/components/sections/tutorial-section'
-import { teamData } from '@/lib/data/team-section'
-import { heroData } from '@/lib/data/hero-section'
-import { aboutData } from '@/lib/data/about-section'
-import { tutorialData } from '@/lib/data/tutorial-section'
+import { landingData } from '@/lib/data/landing'
+import TeamSection from './_components/sections/team-section'
+import AboutSection from './_components/sections/about-section'
+import HeroSection from './_components/sections/hero-section'
+import TutorialSection from './_components/sections/tutorial-section'
 
 export default function Home() {
   return (
-    <>
-      <HeroSection data={heroData} />
-      <TeamSection data={teamData} />
-      <AboutSection data={aboutData} />
-      <TutorialSection data={tutorialData} />
-    </>
+    <main>
+      <HeroSection data={landingData.heroSection} />
+      <TeamSection data={landingData.teamSection} />
+      <AboutSection data={landingData.aboutSection} />
+      <TutorialSection data={landingData.tutorialSection} />
+    </main>
   )
 }

@@ -1,95 +1,87 @@
 'use client'
 
-import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { navbarData } from '@/lib/data/navbar'
+import { globalData } from '@/lib/data/global'
+import { useCallback, useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import { gsap } from 'gsap'
+import Link from 'next/link'
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const navbarRef = useRef<HTMLDivElement | null>(null)
+  const isOpen = useRef(false)
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
+  const { contextSafe } = useGSAP({ scope: navbarRef })
+
+  const showMenuAnimation = contextSafe(() => {
+    const routes = gsap.utils.toArray<HTMLElement>('.nav-route')
+    const timeline = gsap.timeline()
+    routes.forEach((route) => {
+      timeline.to(
+        route,
+        {
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power2.out',
+        },
+        '-=0.1'
+      )
+    })
+  })
+
+  const hideMenuAnimation = contextSafe(() => {
+    const routes = gsap.utils.toArray<HTMLElement>('.nav-route')
+    const timeline = gsap.timeline()
+    routes.toReversed().forEach((route) => {
+      timeline.to(
+        route,
+        {
+          opacity: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+        },
+        '-=0.1'
+      )
+    })
+  })
+
+  const toggleMenu = useCallback(() => {
+    if (isOpen.current) {
+      isOpen.current = false
+      return hideMenuAnimation()
+    }
+    isOpen.current = true
+    return showMenuAnimation()
+  }, [hideMenuAnimation, showMenuAnimation])
 
   return (
-    <nav className="bg-white shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="shrink-0">
-            <a href="/" className="text-2xl font-bold text-blue-600">
-              Logo
-            </a>
-          </div>
-
-          {/* Desktop */}
-          <div className="hidden md:flex space-x-8">
-            <a
-              href="#home"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 transition"
-            >
-              Home
-            </a>
-            <a
-              href="#about"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 transition"
-            >
-              About
-            </a>
-            <a
-              href="#services"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 transition"
-            >
-              Services
-            </a>
-            <a
-              href="#contact"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 transition"
-            >
-              Contact
-            </a>
-          </div>
-
-          <div className="md:hidden">
-            <button
-              onClick={toggleMenu}
-              className="text-gray-700 hover:text-blue-600 focus:outline-none"
-            >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile */}
-      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
-          <a
-            href="#home"
-            className="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded transition"
+    <nav ref={navbarRef} className="fixed w-full top-0 left-0 z-10 px-8 py-6">
+      <div className="flex items-start md:items-center justify-start md:justfiy-between font-pixelify-sans relative p-4">
+        <div className="bg-white absolute w-full h-[2px] top-0 left-0" />
+        <div className="bg-white absolute w-[2px] h-8 top-0 left-0" />
+        <div className="bg-white absolute w-[2px] h-8 top-0 right-0" />
+        <h1 className="bg-gray-600/50 text-white px-5 py-2 font-medium rounded-md text-sm">
+          {globalData.brand.name}
+        </h1>
+        <div className="ms-auto md:m-0 flex items-end md:items-center md:flex-row flex-col">
+          <button
             onClick={toggleMenu}
+            className="bg-gray-600/50 text-white px-5 py-2 font-medium rounded-md text-sm ms-6"
           >
-            Home
-          </a>
-          <a
-            href="#about"
-            className="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded transition"
-            onClick={toggleMenu}
-          >
-            About
-          </a>
-          <a
-            href="#services"
-            className="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded transition"
-            onClick={toggleMenu}
-          >
-            Services
-          </a>
-          <a
-            href="#contact"
-            className="block px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded transition"
-            onClick={toggleMenu}
-          >
-            Contact
-          </a>
+            Menu
+          </button>
+          {navbarData.routes.map((route) => (
+            <Link
+              key={route.id}
+              href={route.url}
+              className="nav-route block bg-gray-600/50 text-white px-5 py-2 font-medium rounded-md text-sm"
+              style={{
+                opacity: 0,
+              }}
+            >
+              {route.title}
+            </Link>
+          ))}
         </div>
       </div>
     </nav>

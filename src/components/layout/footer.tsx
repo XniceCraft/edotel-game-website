@@ -11,23 +11,22 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { globalData } from '@/lib/data/global'
 
 export default function Footer() {
   const containerRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
-    const track = trackRef.current
+    const { current: track } = trackRef
     if (!track) return
 
-    const ctx = gsap.context(() => {
-      gsap.to(track, {
-        xPercent: -50,
-        duration: 22,
-        ease: 'none',
-        repeat: -1,
-      })
-    }, containerRef)
+    gsap.to(track, {
+      xPercent: -50,
+      duration: 22,
+      ease: 'none',
+      repeat: -1,
+    })
   }, [])
 
   return (
@@ -66,7 +65,6 @@ export default function Footer() {
             <h2 className="text-blue-400">{footerData.brand.description}</h2>
             <Separator className="mb-4 mt-10" />
             <div>
-              <p className="text-xs text-white">{footerData.brand.subtitle}</p>
               <div className="flex gap-x-2 mt-2 md:mt-6">
                 {footerData.social.map((item, index) => (
                   <Tooltip key={index}>
@@ -100,16 +98,6 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
-            <div className="">
-              <h2 className="text-xl text-white">{footerData.creator.title}</h2>
-              <ul className="list-disc list-inside mt-4 text-gray-300">
-                {footerData.creator.items.map((item, index) => (
-                  <Link key={index} href={item.href}>
-                    <li>{item.label}</li>
-                  </Link>
-                ))}
-              </ul>
-            </div>
           </div>
 
           <div className="">
@@ -134,9 +122,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="text-center text-xs text-white/50 pb-6 mt-8 md:mt-0">
-          © {new Date().getFullYear()} Your Name. All rights reserved.
-        </div>
+        <p className="text-center text-xs text-white/50 pb-6 mt-8 md:mt-0">
+          © {new Date().getFullYear()} {globalData.brand.name}. All rights
+          reserved.
+        </p>
       </div>
     </footer>
   )
