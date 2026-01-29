@@ -28,10 +28,7 @@ export interface Footer {
     firstText: string
     secondText?: string
   }
-  brand: {
-    title: string
-    description: string
-  }
+  description: string
   social: FooterSocial[]
   navigation: FooterNavigation
   resources: FooterResource

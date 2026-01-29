@@ -1,23 +1,23 @@
 'use client'
 
-import gsap from 'gsap'
+import { globalData } from '@/lib/data/global'
+import { footerData } from '@/lib/data/footer'
 import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
-import Link from 'next/link'
-import { footerData } from '@/lib/data/footer'
 import { Separator } from '../ui/separator'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { globalData } from '@/lib/data/global'
+import { gsap } from 'gsap'
+import Link from 'next/link'
 
 export default function Footer() {
   const containerRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
 
-  useGSAP(() => {
+  const { contextSafe } = useGSAP(() => {
     const { current: track } = trackRef
     if (!track) return
 
@@ -29,6 +29,14 @@ export default function Footer() {
     })
   }, [])
 
+  const scrollToSection = contextSafe((sectionId: string) => {
+    gsap.to(window, {
+      duration: 1,
+      scrollTo: sectionId,
+      ease: 'power2.out',
+    })
+  })
+
   return (
     <footer className="bg-black">
       <div className="relative overflow-hidden">
@@ -38,7 +46,7 @@ export default function Footer() {
         <div ref={containerRef} className="overflow-hidden py-12">
           <div
             ref={trackRef}
-            className="flex w-max whitespace-nowrap font-jogging"
+            className="flex w-max whitespace-nowrap font-jetbrains-mono"
           >
             {[...Array(4)].map((_, i) => (
               <div key={i} className="flex items-center">
@@ -59,10 +67,7 @@ export default function Footer() {
       <div className="px-10">
         <div className="flex flex-col md:flex-row items-start md:ustify-between gap-8">
           <div className="md:max-w-1/2">
-            <h1 className="font-bold text-4xl text-white">
-              {footerData.brand.title}
-            </h1>
-            <h2 className="text-blue-400">{footerData.brand.description}</h2>
+            <p className="text-blue-400">{footerData.description}</p>
             <Separator className="mb-4 mt-10" />
             <div>
               <div className="flex gap-x-2 mt-2 md:mt-6">
@@ -85,30 +90,38 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex items-center gap-x-8">
-            <div className="">
-              <h2 className="text-xl text-white">
-                {footerData.navigation.title}
-              </h2>
-              <ul className="list-disc list-inside mt-4 text-gray-300">
-                {footerData.navigation.items.map((item, index) => (
-                  <Link key={index} href={item.href}>
+          <div>
+            <h2 className="text-xl text-white">
+              {footerData.navigation.title}
+            </h2>
+            <ul className="list-disc list-inside mt-4 text-gray-300">
+              {footerData.navigation.items.map((item, index) =>
+                item.href.startsWith('#') ? (
+                  <button
+                    key={index}
+                    onClick={() => scrollToSection(item.href)}
+                    className="block"
+                  >
+                    <li>{item.label}</li>
+                  </button>
+                ) : (
+                  <Link key={index} href={item.href} className="block">
                     <li>{item.label}</li>
                   </Link>
-                ))}
-              </ul>
-            </div>
+                )
+              )}
+            </ul>
           </div>
 
-          <div className="">
+          <div>
             <h2 className="text-xl text-white">{footerData.resources.title}</h2>
-            <div className="mt-4 flex items-center justify-start gap-2">
+            <div className="mt-4 space-x-2">
               {footerData.resources.items.map((item, index) => (
                 <Tooltip key={index}>
                   <TooltipTrigger>
                     <Link
                       href={item.href}
-                      className="flex text-white p-2 rounded-full border border-white hover:bg-blue-600 transition-all duration-300"
+                      className="inline-flex text-white p-2 rounded-full border border-white hover:bg-blue-600 transition-all duration-300"
                     >
                       <item.icon />
                     </Link>

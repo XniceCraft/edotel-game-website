@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 import { globalData } from '@/lib/data/global'
-import { Outfit, Pixelify_Sans } from 'next/font/google'
+import { JetBrains_Mono, Outfit, Pixelify_Sans } from 'next/font/google'
 import ScrollSmootherLayout from '@/components/layout/scroll-smoother-layout'
 import Footer from '@/components/layout/footer'
 import Navbar from '@/components/layout/navbar'
@@ -15,6 +15,12 @@ const outfitFont = Outfit({
 
 const pixelifySansFont = Pixelify_Sans({
   variable: '--font-pixelify-sans',
+  fallback: ['sans-serif'],
+  subsets: ['latin'],
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-jetbrains-mono',
   fallback: ['sans-serif'],
   subsets: ['latin'],
 })
@@ -47,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${outfitFont.variable} ${pixelifySansFont.variable} antialiased font-sans`}
+        className={`${outfitFont.variable} ${pixelifySansFont.variable} ${jetbrainsMono.variable} antialiased font-sans`}
         suppressHydrationWarning
       >
         <Navbar />

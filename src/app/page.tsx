@@ -8,9 +8,9 @@ export default function Home() {
   return (
     <main>
       <HeroSection data={landingData.heroSection} />
-      <TeamSection data={landingData.teamSection} />
       <AboutSection data={landingData.aboutSection} />
       <TutorialSection data={landingData.tutorialSection} />
+      <TeamSection data={landingData.teamSection} />
     </main>
   )
 }

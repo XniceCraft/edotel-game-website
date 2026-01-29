@@ -93,6 +93,7 @@ export default function TutorialSection({ data }: { data: TutorialSection }) {
   return (
     <>
       <div
+        id="tutorial"
         ref={sectionAbout}
         className="bg-black w-screen min-h-screen flex items-center justify-center overflow-hidden"
       >

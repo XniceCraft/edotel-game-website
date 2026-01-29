@@ -1,24 +1,16 @@
-import { FaGithub, FaInstagram, FaWhatsapp, FaReact } from 'react-icons/fa'
+import { FaGithub, FaInstagram, FaReact } from 'react-icons/fa'
 import { SiGreensock, SiShadcnui, SiTypescript } from 'react-icons/si'
 
 import type { Footer } from '@/types/footer'
 
 export const footerData: Footer = {
   runningText: {
-    firstText: 'EDOTEL HOW TO',
-    secondText: 'LEARN • BUILD • SHARE',
+    firstText: 'Edotel:',
+    secondText: 'How To',
   },
-  brand: {
-    title: 'Edotel How To',
-    description:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi repellat obcaecati vel? Nihil illo quam similique et saepe',
-  },
+  description:
+    'Edotel: How To merupakan game simulasi edukatif yang mengangkat aktivitas PKL di bidang perhotelan. Pemain akan menjalankan tugas pelayanan tamu, pengelolaan kamar, dan laundry dalam lingkungan hotel sekolah yang interaktif dan realistis.',
   social: [
-    {
-      label: 'WhatsApp',
-      href: '#',
-      icon: FaWhatsapp,
-    },
     {
       label: 'Instagram',
       href: '#',
@@ -31,24 +23,24 @@ export const footerData: Footer = {
     },
   ],
   navigation: {
-    title: 'Navigation',
+    title: 'Navigasi',
     items: [
       {
-        label: 'About',
-        href: '#',
+        label: 'Tentang',
+        href: '#about',
       },
       {
-        label: 'Team',
-        href: '#',
+        label: 'Tim Pengembang',
+        href: '#our-team',
       },
       {
         label: 'Tutorial',
-        href: '#',
+        href: '#tutorial',
       },
     ],
   },
   resources: {
-    title: 'Resource',
+    title: 'Sumber Daya',
     items: [
       {
         label: 'TypeScript',

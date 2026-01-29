@@ -8,6 +8,9 @@ const eslintConfig = defineConfig([
   ...nextTs,
   prettier,
   globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
+  {
+    rules: { '@next/next/no-img-element': 'off' },
+  },
 ])
 
 export default eslintConfig

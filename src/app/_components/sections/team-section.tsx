@@ -61,6 +61,7 @@ export default function TeamSection({ data }: { data: TeamSection }) {
 
   return (
     <section
+      id="our-team"
       ref={sectionRef}
       className="min-h-screen flex flex-col justify-center py-8 bg-blue-50"
     >

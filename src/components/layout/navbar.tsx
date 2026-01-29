@@ -13,6 +13,14 @@ export default function Navbar() {
 
   const { contextSafe } = useGSAP({ scope: navbarRef })
 
+  const scrollToSection = contextSafe((sectionId: string) => {
+    gsap.to(window, {
+      duration: 1,
+      scrollTo: sectionId,
+      ease: 'power2.out',
+    })
+  })
+
   const showMenuAnimation = contextSafe(() => {
     const routes = gsap.utils.toArray<HTMLElement>('.nav-route')
     const timeline = gsap.timeline()
@@ -60,28 +68,41 @@ export default function Navbar() {
         <div className="bg-white absolute w-full h-[2px] top-0 left-0" />
         <div className="bg-white absolute w-[2px] h-8 top-0 left-0" />
         <div className="bg-white absolute w-[2px] h-8 top-0 right-0" />
-        <h1 className="bg-gray-600/50 text-white px-5 py-2 font-medium rounded-md text-sm">
+        <h1 className="block bg-gray-600/40 text-white px-5 py-2 font-medium rounded-md text-sm bg-clip-padding backdrop-filter backdrop-blur-lg">
           {globalData.brand.name}
         </h1>
         <div className="ms-auto md:m-0 flex items-end md:items-center md:flex-row flex-col">
           <button
             onClick={toggleMenu}
-            className="bg-gray-600/50 text-white px-5 py-2 font-medium rounded-md text-sm ms-6"
+            className="block bg-gray-600/40 text-white px-5 py-2 font-medium rounded-md text-sm bg-clip-padding backdrop-filter backdrop-blur-lg ms-6"
           >
             Menu
           </button>
-          {navbarData.routes.map((route) => (
-            <Link
-              key={route.id}
-              href={route.url}
-              className="nav-route block bg-gray-600/50 text-white px-5 py-2 font-medium rounded-md text-sm"
-              style={{
-                opacity: 0,
-              }}
-            >
-              {route.title}
-            </Link>
-          ))}
+          {navbarData.routes.map((route) =>
+            route.url.startsWith('#') ? (
+              <button
+                key={route.id}
+                className="nav-route block bg-gray-600/40 text-white px-5 py-2 font-medium rounded-md text-sm bg-clip-padding backdrop-filter backdrop-blur-lg"
+                style={{
+                  opacity: 0,
+                }}
+                onClick={() => scrollToSection(route.url)}
+              >
+                {route.title}
+              </button>
+            ) : (
+              <Link
+                key={route.id}
+                href={route.url}
+                className="nav-route block bg-gray-600/40 text-white px-5 py-2 font-medium rounded-md text-sm bg-clip-padding backdrop-filter backdrop-blur-lg"
+                style={{
+                  opacity: 0,
+                }}
+              >
+                {route.title}
+              </Link>
+            )
+          )}
         </div>
       </div>
     </nav>
